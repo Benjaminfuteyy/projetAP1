@@ -63,6 +63,7 @@ class projet extends Program {
 		println('\t' + "CM1: Tapez 3");
 		println('\t' + "CM2: Tapez 4");
 		return CP;
+		//option pour voir les meilleurs résultats
 		//il est possible de bidouiller le terminal pour ne pas avoir à appuyer sur [Entrée] pour envoyer l'information, à voir. (voir: man stty)
 	}
 
@@ -97,20 +98,27 @@ class projet extends Program {
 
 	//jeu
 	//on affiche un mot tiré au hasard
-	//le joueur entre ses caractères un par un, vérification des caractères, boucle se finit quand il appuie sur [Entrée]
+	//le joueur entre ses caractères un par un, affichage et vérification des caractères un par un (si caractère bon, texte vert, si faux texte rouge par ex), 
+	//si il entre [retour arrière], clear le terminal et tout reafficher avec le dernier caractère afficher supprimé, 
+	//la boucle se finit quand il appuie sur [Entrée], et on passe alors au mot suivant
 	//vérifiation si le mot est correct, si oui nbMotsCorrects +1
-
+	//une fois le temps écoulé on lui demande d'entrer son nom
+	//on crée une nouvelle classe de type score avec son nom et son résultat
 	//comment stocker les scores ?
+	//on affiche les meilleurs résultats
 	void algorithm(){
 		boolean temps = false; //à enlever
 		int nbMotsCorrects = 0;
 		String[] tableauChoisi = selectionNiveau();
 		//utiliser la fonction void enableKeyTypedInConsole(boolean on) pour activer la possibilité de capturer les touches manipulées par l'utilisateur et void keyTypedInConsole(char c) pour être notifié des touches manipulées. Dès que l'utilisateur appuiera sur une touche, la méthode 'keyTypedInConsole' sera automatiquement appellée avec en paramètre la valeur de la touche manipulée.
 		while(temps){ //à voir comment on gère un chronomètre
+			
 			println(motAuHasard(tableauChoisi));
-			if(verification(lectureClavier()))
-				nbMotsCorrects = nbMotsCorrects + 1;
-
+			while(true){//tant que l'utilisateur n'a pas saisi [Entrée]
+				if(verification(lectureClavier()))
+					nbMotsCorrects = nbMotsCorrects + 1;
+			}
+			}
 		}
 		calculAffichageResultat(nbMotsCorrects);
 		//utiliser la fonction void reset() pour reinitialiser la console
