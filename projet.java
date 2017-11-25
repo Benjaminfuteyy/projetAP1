@@ -98,14 +98,13 @@ class projet extends Program {
 	}
 
 	void testMotAuHasard(){
-		//
-
+		String[] tableauDeMots = new String[]{"mot"};
+		assertEquals("mot",motAuHasard(tableauDeMots));
 		//à voir comment on test une fonction qui sort quelque chose au hasard
-		//tableau de 1 mot, il sort forcement se mot-là.
 	}
 
 	String motAuHasard(String[] tableauDeMots){
-		return "rien";
+		return tableauDeMots[(int)(random() * length(tableauDeMots))];
 	}
 
 	void testCalculAffichageResultat(){
@@ -131,7 +130,7 @@ class projet extends Program {
 	void keyTypedInConsole(char c){
 		if(c=='\n')
 			//clearScreen();
-		print(c);
+			print(c);
 
 	}
 
@@ -146,6 +145,7 @@ class projet extends Program {
 	//on crée une nouvelle classe de type score avec son nom et son résultat
 	//comment stocker les scores ?
 	//on affiche les meilleurs résultats
+
 	void algorithm(){
 		boolean temps = false; //à enlever
 		int nbMotsCorrects = 0;
@@ -154,25 +154,28 @@ class projet extends Program {
 			String[] tableauChoisi = selectionNiveau();
 			//clearScreen();
 			//utiliser la fonction void enableKeyTypedInConsole(boolean on) pour activer la possibilité de capturer les touches manipulées par l'utilisateur et void keyTypedInConsole(char c) pour être notifié des touches manipulées. Dès que l'utilisateur appuiera sur une touche, la méthode 'keyTypedInConsole' sera automatiquement appellée avec en paramètre la valeur de la touche manipulée.
-			while(temps){ //à voir comment on gère un chronomètre
-				
+			while(temps){ //à voir comment on gère un chronomètre				
 				println(motAuHasard(tableauChoisi));
-				while(true){//tant que l'utilisateur n'a pas saisi [Entrée]
+				//ici, à voir si ce qu'on gère avec la fonction keyTypedInConsole et ce qu'on gère avec l'algo
+					//càd: la verification, l'affichage, le passage au prochain mot
+				while(true){ //tant que l'utilisateur n'a pas saisi [Entrée]
 					enableKeyTypedInConsole(true); //appel la fonction keyTypedInConsole
 					if(verification(lectureClavier()))
 						nbMotsCorrects = nbMotsCorrects + 1;
-
 				}
 			}
-			
 			calculAffichageResultat(nbMotsCorrects);
 		}
 	}
-			//utiliser la fonction void reset() pour reinitialiser la console
-			//voir aussi void clearScreen()
+
 			//utiliser void background(String color) et void text(String color) pour définir la couleur d'affichage du texte et de l'arrière plan
-			//String color est ANSI_RED par exemple
+			//exemple d'utilisation:
+				// println(ANSI_RED_BG + "le fond est rouge");
+				// println("fond rouge encore");
+				// reset();
+				// println("fond normal");
 			//voir aussi: clearEOL() pour effacer la ligne depuis le curseur jusqu'à la fin de la ligne
 			//voir aussi: clearBOL() pour effacer la ligne depuis le début jusqu'au curseur
 			//voir aussi: clearline() pour effacer toute la ligne
+			//mettre un reset() à la fin pour ne pas modifier la console de l'utilisateur
 }
