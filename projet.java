@@ -1,6 +1,11 @@
 class projet extends Program {
     
     //variables globales
+	class score {
+		double resultat = 0.0;
+		String nom = "";
+	}
+	score nouveauScore = new score();
     //les tableaux sont créés avec la fonction creerTableau, à partir d'un copier-coller des tables de http://o.bacquet.free.fr/db2.htm . Les retours à la lignes ont été enlevés à la main car je ne sais pas comment les gérer dans une String (erreur à la compilation: unclosed string literal).
 	final String[] CP = creerTableau("maison 	papa 	porte 	rue 	 avec 	deux 	terre 	  	été 	maman 	pipe 	pour 	table école 	jardin 	mal bébé 	carte 	cheminée 	livre 	nature rouge 	sucre 	tête 	vache 	 achat 	barbe 	classe 	feu 	lion matin 	revenir 	rive 	robe 	soir tuer 	vendredi 	vigne 	  	 branche 	brique 	chat 	facteur 	femme fermier 	homme 	jeudi 	lapin 	lui lundi 	mars 	moulin 	plante 	poire poste 	route 	soleil 	sur 	triste");
 	final String[] CE1 = creerTableau("animal 	arbre 	arme 	aube 	autour avenir 	bouche 	brave 	chemin 	cheval culture 	devoir 	église 	enfant 	étude fête 	image 	louer 	mardi 	même mort 	moustache 	niche 	ordre 	plume poupée 	pouvoir 	propre 	retenir 	rire sage 	solide 	soupe 	  	 année 	article 	aviateur 	bonne 	café cage 	carton 	cave 	chaleur 	chambre chanteur 	charme 	costume 	couche croix 	devenir 	douleur 	droite 	écriture famille 	fille 	fortune 	foudre 	journal lecture 	libre 	ligne 	lit 	maladie marbre 	marche 	marque 	mère 	midi morne 	octobre 	os 	pauvre 	plus pomme 	premier 	proverbe 	rédaction 	relire remise 	retour 	riche 	rude 	sable salade 	suite 	tasse 	tige 	voiture acte 	artiste 	astre 	blé 	boire bois 	bon 	bord 	cabine 	chasse chasseur 	chemise 	chercher 	chevelure 	compagnon conduite 	confiture 	contenir 	convenir 	coucou coude 	courage 	dans 	élève 	entre étable 	établir 	fabrique 	faute 	fleuve fortement 	froid 	futur 	gros 	journée juste 	malade 	mariage 	matière 	mineur miracle 	moine 	monde 	musique 	neige  	orange 	pénible 	personne 	peur prince 	regarder 	reste 	réunir 	ronde ruche 	sec 	semaine 	sol 	sortie survenir 	tartine 	toucher 	vie 	visage visite 	visiteur 	voleur 	vue 	 agréable 	ardeur 	armoire 	balle 	belge bonjour 	bordure 	bouton 	cahier 	calcul chanson 	charbon 	charge 	chien 	cloche coin 	comme 	contre 	couleur 	coupe crime 	cuivre 	diable 	dictée 	directeur double 	ferme 	figure 	fromage 	grand jouer 	lait 	large 	lire 	liste main 	matinée 	meuble 	mouton 	nuage oncle 	parent 	père 	perle 	piste planche 	plumier 	poche 	prison 	produire rage 	ramage 	reine 	remarque 	reproche revoir 	revue 	roi 	rose 	sac salutation 	singe 	sorte 	statue 	tarte tous 	tout 	usage 	usine 	vapeur");
@@ -70,18 +75,41 @@ class projet extends Program {
 		return "rien";
 	}
 
+	void testCalculAffichageResultat(){
+
+	}
+
+	void calculAffichageResultat(int nbMotsCorrects){
+
+	}
+
+	String toString (score nouveauScore){
+		return nouveauScore.nom + " a fait un resultat de " + nouveauScore.resultat;
+	}
+
+	char lectureClavier(){
+		return ' ';
+	}
+
+	boolean verification(char c){
+		return false;
+	}
+
 	//jeu
 	//on affiche un mot tiré au hasard
 	//le joueur entre ses caractères un par un, vérification des caractères, boucle se finit quand il appuie sur [Entrée]
-	//vérifiation si le mot est correct, si oui nbMotsCorrect +1
+	//vérifiation si le mot est correct, si oui nbMotsCorrects +1
 
-
+	//comment stocker les scores ?
 	void algorithm(){
 		boolean temps = false; //à enlever
+		int nbMotsCorrects = 0;
 		String[] tableauChoisi = selectionNiveau();
 		//utiliser la fonction void enableKeyTypedInConsole(boolean on) pour activer la possibilité de capturer les touches manipulées par l'utilisateur et void keyTypedInConsole(char c) pour être notifié des touches manipulées. Dès que l'utilisateur appuiera sur une touche, la méthode 'keyTypedInConsole' sera automatiquement appellée avec en paramètre la valeur de la touche manipulée.
 		while(temps){ //à voir comment on gère un chronomètre
-			
+			println(motAuHasard(tableauChoisi));
+			if(verification(lectureClavier()))
+				nbMotsCorrects = nbMotsCorrects + 1;
 
 		}
 		calculAffichageResultat(nbMotsCorrects);
@@ -92,5 +120,3 @@ class projet extends Program {
 
 	}	
 }
-
-//test
