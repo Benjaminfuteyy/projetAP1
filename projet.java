@@ -38,7 +38,7 @@ class projet extends Program {
 		String[] tableau = new String[nbMots]; //initialisation du tableau
 		for(int i =0; i<nbMots; i++)
 			tableau[i] = "";
-		for(int i=0; i<length(stringPropre); i++){ //remplir le tableau avec les mots
+		for(int i=0; i<length(stringPropre); i++){ //remplire le tableau avec les mots
 			if(charAt(stringPropre,i)==' ')
 				caseCourante = caseCourante + 1;
 			else
@@ -61,10 +61,30 @@ class projet extends Program {
 		//il est possible de bidouiller le terminal pour ne pas avoir à appuyer sur [Entrée] pour envoyer l'information, à voir. (voir: man stty)
 	}
 
+	void testMotAuHasard(){
+		//à voir comment on test une fonction qui sort quelque chose au hasard
+		//tableau de 1 mot, il sort forcement se mot-là.
+	}
+
+	String motAuHasard(String[] tableauDeMots){
+		return "rien";
+	}
+
+	//jeu
+	//on affiche un mot tiré au hasard
+	//le joueur entre ses caractères un par un, vérification des caractères, boucle se finit quand il appuie sur [Entrée]
+	//vérifiation si le mot est correct, si oui nbMotsCorrect +1
+
 
 	void algorithm(){
+		boolean temps = false; //à enlever
 		String[] tableauChoisi = selectionNiveau();
 		//utiliser la fonction void enableKeyTypedInConsole(boolean on) pour activer la possibilité de capturer les touches manipulées par l'utilisateur et void keyTypedInConsole(char c) pour être notifié des touches manipulées. Dès que l'utilisateur appuiera sur une touche, la méthode 'keyTypedInConsole' sera automatiquement appellée avec en paramètre la valeur de la touche manipulée.
+		while(temps){ //à voir comment on gère un chronomètre
+			
+
+		}
+		calculAffichageResultat(nbMotsCorrects);
 		//utiliser la fonction void reset() pour reinitialiser la console
 		//voir aussi void clearScreen()
 		//utiliser void background(String color) et void text(String color) pour définir la couleur d'affichage du texte et de l'arrière plan
