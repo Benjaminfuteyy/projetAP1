@@ -90,5 +90,7 @@ class projet extends Program {
 		//utiliser void background(String color) et void text(String color) pour définir la couleur d'affichage du texte et de l'arrière plan
 		//String color est ANSI_RED par exemple
 
-	}
+	}	
 }
+
+//test
