@@ -1,5 +1,4 @@
 class projet extends Program {
-    
     //variables globales
 	class score {
 		double resultat = 0.0;
@@ -18,28 +17,28 @@ class projet extends Program {
 			println(tableau[i] + '|');
 	}
 
-    void testCreerTableau(){
+	void testCreerTableau(){
 		assertArrayEquals(new String[]{"branche","brique","chat","facteur","femme","fermier","homme","jeudi","lapin","lui","lundi","mars","moulin","plante","poire"},creerTableau("branche 	brique 	chat 	facteur 	femme  fermier 	homme 	jeudi 	lapin 	lui lundi 	mars 	moulin 	plante 	poire"));
 	}
 
 	String[] creerTableau(String mots){ //transforme un String contenant une série de mots séparés par un ou plusieurs espaces ou '\t' en un tableau de Strings
-		int nbMots = 1;
-		int caseCourante= 0;
-		boolean flagMot = true;
-		String stringPropre = "";	
-		for(int i=0; i<length(mots); i++){
-			if(charAt(mots,i)>='a' && charAt(mots,i)<='z' || charAt(mots,i)=='é' || charAt(mots,i)=='è' || charAt(mots,i) == 'ê' || charAt(mots,i) == '-'){
-				stringPropre = stringPropre + charAt(mots,i);
-				flagMot = true;
-			}
-			else if(flagMot){
-				stringPropre = stringPropre + ' ';
-				flagMot = false;
-				nbMots = nbMots +1;	
-			}	
+	int nbMots = 1;
+	int caseCourante= 0;
+	boolean flagMot = true;
+	String stringPropre = "";	
+	for(int i=0; i<length(mots); i++){
+		if(charAt(mots,i)>='a' && charAt(mots,i)<='z' || charAt(mots,i)=='é' || charAt(mots,i)=='è' || charAt(mots,i) == 'ê' || charAt(mots,i) == '-'){
+			stringPropre = stringPropre + charAt(mots,i);
+			flagMot = true;
+		}
+		else if(flagMot){
+			stringPropre = stringPropre + ' ';
+			flagMot = false;
+			nbMots = nbMots +1;	
+		}	
 				//si le caractère est une lettre, le rajouter, drapeau mot = vrai
 				//si le caractère n'est pas une lettre et si le drapeau mot est vrai, rajouter un espace, passer le drapeau à faux
-		}
+	}
 		String[] tableau = new String[nbMots]; //initialisation du tableau
 		for(int i =0; i<nbMots; i++)
 			tableau[i] = "";
@@ -47,9 +46,22 @@ class projet extends Program {
 			if(charAt(stringPropre,i)==' ')
 				caseCourante = caseCourante + 1;
 			else
-			tableau[caseCourante]=tableau[caseCourante]+charAt(stringPropre,i);
+				tableau[caseCourante]=tableau[caseCourante]+charAt(stringPropre,i);
 		}
 		return tableau;
+	}
+
+	String menus(){
+		String saisieUtilisateur = "1";
+		do{
+			//clearScreen();
+			println("Voulez-vous..");
+			println('\t' + "Jouer ? Tapez 1");
+			println('\t' + "Afficher les listes de mots ? Tapez 2");
+			println('\t' + "Afficher les  meilleurs résutats ? Tapez 3");
+			saisieUtilisateur = readString();
+		} while(!equals("1",saisieUtilisateur)^!equals("2",saisieUtilisateur)^!equals("3",saisieUtilisateur));
+		return saisieUtilisateur;
 	}
 
 	void testSelectionNiveau(){
@@ -57,14 +69,32 @@ class projet extends Program {
 	}
 
 	String[] selectionNiveau(){ 
-		println("En quelle classe êtes-vous ?");
-		println('\t' + "CE1: Tapez 1");
-		println('\t' + "CE2: Tapez 2");
-		println('\t' + "CM1: Tapez 3");
-		println('\t' + "CM2: Tapez 4");
+		String saisieUtilisateur = "0";
+		do{
+			//clearScreen();
+			println("En quelle classe êtes-vous ?");
+			println('\t' + "CP : Tapez 0");
+			println('\t' + "CE1: Tapez 1");
+			println('\t' + "CE2: Tapez 2");
+			println('\t' + "CM1: Tapez 3");
+			println('\t' + "CM2: Tapez 4");
+			println('\t' + "Appuyez ensuite sur [Entrée]");
+			saisieUtilisateur = readString();
+			//println("Vous avez entrez " + saisieUtilisateur + ". Cette valeur n'a pas été reconnue. Veuillez reessayer.");
+		} while(!equals("1",saisieUtilisateur)^!equals("2",saisieUtilisateur)^!equals("3",saisieUtilisateur)^!equals("4",saisieUtilisateur)^!equals("0",saisieUtilisateur)); 
+		if(saisieUtilisateur == "4")
+			return CM2;
+		if(saisieUtilisateur == "0")
+			return CP;
+		if(saisieUtilisateur == "2")
+			return CE2;
+		if(saisieUtilisateur == "3")
+			return CM1;
 		return CP;
 		//option pour voir les meilleurs résultats
-		//il est possible de bidouiller le terminal pour ne pas avoir à appuyer sur [Entrée] pour envoyer l'information, à voir. (voir: man stty)
+		//option pour voir les tableaux
+		//voir: comment ne pas afficher ce qui est tapé dans le buffer
+		//crash quand on ne rentre rien
 	}
 
 	void testMotAuHasard(){
@@ -96,6 +126,14 @@ class projet extends Program {
 		return false;
 	}
 
+	void keyTypedInConsole(char c){
+		if(c=='\n')
+			//clearScreen();
+		print(c);
+
+	}
+
+
 	//jeu
 	//on affiche un mot tiré au hasard
 	//le joueur entre ses caractères un par un, affichage et vérification des caractères un par un (si caractère bon, texte vert, si faux texte rouge par ex), 
@@ -109,22 +147,28 @@ class projet extends Program {
 	void algorithm(){
 		boolean temps = false; //à enlever
 		int nbMotsCorrects = 0;
-		String[] tableauChoisi = selectionNiveau();
-		//utiliser la fonction void enableKeyTypedInConsole(boolean on) pour activer la possibilité de capturer les touches manipulées par l'utilisateur et void keyTypedInConsole(char c) pour être notifié des touches manipulées. Dès que l'utilisateur appuiera sur une touche, la méthode 'keyTypedInConsole' sera automatiquement appellée avec en paramètre la valeur de la touche manipulée.
-		while(temps){ //à voir comment on gère un chronomètre
-			
-			println(motAuHasard(tableauChoisi));
-			while(true){//tant que l'utilisateur n'a pas saisi [Entrée]
-				if(verification(lectureClavier()))
-					nbMotsCorrects = nbMotsCorrects + 1;
-			}
-			}
-		}
-		calculAffichageResultat(nbMotsCorrects);
-		//utiliser la fonction void reset() pour reinitialiser la console
-		//voir aussi void clearScreen()
-		//utiliser void background(String color) et void text(String color) pour définir la couleur d'affichage du texte et de l'arrière plan
-		//String color est ANSI_RED par exemple
+		String optionMenuChoisie = menus();
+		if(equals(optionMenuChoisie,"1")){
+			String[] tableauChoisi = selectionNiveau();
+			//clearScreen();
+			//utiliser la fonction void enableKeyTypedInConsole(boolean on) pour activer la possibilité de capturer les touches manipulées par l'utilisateur et void keyTypedInConsole(char c) pour être notifié des touches manipulées. Dès que l'utilisateur appuiera sur une touche, la méthode 'keyTypedInConsole' sera automatiquement appellée avec en paramètre la valeur de la touche manipulée.
+			while(temps){ //à voir comment on gère un chronomètre
+				
+				println(motAuHasard(tableauChoisi));
+				while(true){//tant que l'utilisateur n'a pas saisi [Entrée]
+					enableKeyTypedInConsole(true); //appel la fonction keyTypedInConsole
+					if(verification(lectureClavier()))
+						nbMotsCorrects = nbMotsCorrects + 1;
 
-	}	
+				}
+			}
+			
+			calculAffichageResultat(nbMotsCorrects);
+		}
+	}
+			//utiliser la fonction void reset() pour reinitialiser la console
+			//voir aussi void clearScreen()
+			//utiliser void background(String color) et void text(String color) pour définir la couleur d'affichage du texte et de l'arrière plan
+			//String color est ANSI_RED par exemple
+
 }
