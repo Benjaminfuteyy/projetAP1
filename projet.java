@@ -98,6 +98,8 @@ class projet extends Program {
 	}
 
 	void testMotAuHasard(){
+		//
+
 		//à voir comment on test une fonction qui sort quelque chose au hasard
 		//tableau de 1 mot, il sort forcement se mot-là.
 	}
@@ -170,5 +172,7 @@ class projet extends Program {
 			//voir aussi void clearScreen()
 			//utiliser void background(String color) et void text(String color) pour définir la couleur d'affichage du texte et de l'arrière plan
 			//String color est ANSI_RED par exemple
-
+			//voir aussi: clearEOL() pour effacer la ligne depuis le curseur jusqu'à la fin de la ligne
+			//voir aussi: clearBOL() pour effacer la ligne depuis le début jusqu'au curseur
+			//voir aussi: clearline() pour effacer toute la ligne
 }
