@@ -29,12 +29,13 @@ class testing2 extends Program {
 	    if(length(motSaisi)>=2)
 		motSaisi = substring(motSaisi,0,length(motSaisi)-2);
 	}	    
-	else { //si le caractère saisi est une lettre
+	if(c!=' ' || c!= '\n') { //si le caractère saisi est une lettre
 	    motSaisi = motSaisi + c;
 	    if(c==charAt(motATaper,compteur))
 		reset();
 	    if(compteur>0){
-		if(c!=charAt(motATaper,compteur)){
+		if(c!=charAt(motATaper,compteur)){ //si le caractère ne correspond pas
+		    //ne marche pas pour la première lettre
 		    backward(1);
 		    clearEOL();
 		    print(ANSI_RED);
